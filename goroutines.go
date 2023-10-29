@@ -48,7 +48,7 @@ func main() {
 	for i, part := range parts {
 		wg.Add(1)
 		go func(i int, part []int) {
-			defer wg.Done()
+			defer wg.Done() // Defer statement to signal the WaitGroup that the goroutine has finished
 			fmt.Printf("Sorting Part %d: %v\n", i+1, part)
 			sort.Ints(part)
 		}(i, part)

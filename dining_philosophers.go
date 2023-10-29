@@ -5,11 +5,11 @@ import (
 	"sync"
 )
 
-type ChopS struct{ sync.Mutex }
+type ChopSticks struct{ sync.Mutex }
 
 type Philosopher struct {
 	id              int
-	leftCS, rightCS *ChopS
+	leftCS, rightCS *ChopSticks
 }
 
 func (p Philosopher) eat(wg *sync.WaitGroup) {
@@ -17,8 +17,8 @@ func (p Philosopher) eat(wg *sync.WaitGroup) {
 		p.leftCS.Lock()
 		p.rightCS.Lock()
 
-		fmt.Println("starting to eat ", p.id)
-		fmt.Println("finishing eating ", p.id)
+		fmt.Printf("Philosopher with id: %v starting to eat. \n", p.id)
+		fmt.Printf("Philosopher with id: %v finishing eating. \n", p.id)
 
 		p.rightCS.Unlock()
 		p.leftCS.Unlock()
@@ -29,9 +29,9 @@ func (p Philosopher) eat(wg *sync.WaitGroup) {
 // main function initializes the chopsticks and philosophers, and starts the eating process
 func main() {
 	// create a slice of 5 chopsticks
-	CSticks := make([]*ChopS, 5)
+	CSticks := make([]*ChopSticks, 5)
 	for i := 0; i < 5; i++ {
-		CSticks[i] = new(ChopS)
+		CSticks[i] = new(ChopSticks)
 	}
 
 	// create a slice of 5 philosophers, each with two chopsticks
